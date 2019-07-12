@@ -244,9 +244,7 @@ class Builder extends \Illuminate\Database\Query\Builder
     protected function getCacheCallback($columns)
     {
         return function () use ($columns) {
-            $this->cacheSeconds = null;
-
-            return $this->get($columns);
+            return parent::get($columns);
         };
     }
 
