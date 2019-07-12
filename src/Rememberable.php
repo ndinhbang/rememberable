@@ -2,7 +2,7 @@
 
 namespace Watson\Rememberable;
 
-use Watson\Rememberable\Query\Builder;
+use Watson\Rememberable\Query\Builder as QueryBuilder;
 
 trait Rememberable
 {
@@ -13,11 +13,11 @@ trait Rememberable
      */
     protected function newBaseQueryBuilder()
     {
-        $conn = $this->getConnection();
+        $connection = $this->getConnection();
 
-        $grammar = $conn->getQueryGrammar();
-
-        $builder = new Builder($conn, $grammar, $conn->getPostProcessor());
+        $builder = new QueryBuilder(
+            $connection, $connection->getQueryGrammar(), $connection->getPostProcessor()
+        );
 
         if (isset($this->rememberFor)) {
             $builder->remember($this->rememberFor);
